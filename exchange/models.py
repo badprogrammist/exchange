@@ -1,6 +1,9 @@
+from decimal import Decimal
+
 from django.db import models
 
 from enum import Enum
+import datetime
 
 
 class Currency(Enum):
@@ -10,3 +13,8 @@ class Currency(Enum):
     USD = "USD"
 
 
+class Rate(models.Model):
+    from_ccy: Currency
+    to_ccy: Currency
+    value: Decimal
+    dt: datetime.datetime

@@ -4,12 +4,18 @@
 #
 #    pip-compile requirements.in
 #
+aiohttp==3.6.2            # via -r requirements.in
 asgiref==3.2.3            # via django
-attrs==19.3.0             # via pytest
+async-timeout==3.0.1      # via aiohttp
+attrs==19.3.0             # via aiohttp, pytest
+chardet==3.0.4            # via aiohttp
+contextlib2==0.5.5        # via schema
 django==3.0.4             # via -r requirements.in
 environs==7.3.0           # via -r requirements.in
+idna==2.9                 # via yarl
 marshmallow==3.5.1        # via environs
 more-itertools==8.2.0     # via pytest
+multidict==4.7.5          # via aiohttp, yarl
 packaging==20.3           # via pytest
 pluggy==0.13.1            # via pytest
 psycopg2==2.8.4           # via -r requirements.in
@@ -18,6 +24,8 @@ pyparsing==2.4.6          # via packaging
 pytest==5.3.5             # via -r requirements.in
 python-dotenv==0.12.0     # via environs
 pytz==2019.3              # via django
+schema==0.7.1             # via -r requirements.in
 six==1.14.0               # via packaging
 sqlparse==0.3.1           # via django
 wcwidth==0.1.8            # via pytest
+yarl==1.4.2               # via aiohttp

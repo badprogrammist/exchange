@@ -10,8 +10,7 @@ PG_USER = env.str("PG_USER")
 PG_PASS = env.str("PG_PASS")
 
 EXCHANGE_DATA_PROVIDER = env.str("EXCHANGE_DATA_PROVIDER",
-                                 default="OPEN_EXCHANGE_RATES")
+                                 default="ECB_PROVIDER")
 
-OPEN_EXCHANGE_RATES_APP_ID = env.str("OPEN_EXCHANGE_RATES_APP_ID")
-OPEN_EXCHANGE_RATES_ENDPOINT = env.str("OPEN_EXCHANGE_RATES_ENDPOINT",
-                                       default="https://docs.openexchangerates.org/")
+ECB_PROVIDER_API_ENDPOINT = env.str("ECB_PROVIDER_API_ENDPOINT",
+                                    default="https://exchangeratesapi.io/")
