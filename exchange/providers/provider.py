@@ -1,9 +1,10 @@
 from abc import ABC, abstractmethod
 
 from exchange.models import Currency, Rate
+from ..errors import ExchangeError
 
 
-class ExchangeRateLoadError(Exception):
+class ExchangeRateLoadError(ExchangeError):
     pass
 
 

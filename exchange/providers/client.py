@@ -9,7 +9,11 @@ class HttpClient:
 
     @classmethod
     def create(cls):
-        session = aiohttp.ClientSession()
+        try:
+            session = aiohttp.ClientSession()
+        except aiohttp.ClientError as err:
+            raise ClientError("Could not create client") from err
+
         return cls(session)
 
     def __init__(self, session: aiohttp.ClientSession):

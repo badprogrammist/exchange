@@ -8,7 +8,7 @@ from ..models import Currency, Rate
 
 _POSSIBLE_CCY = [ccy.value for ccy in Currency]
 
-_ccy_validator = sm.Or(*_POSSIBLE_CCY, only_one=True)
+_ccy_validator = sm.Or(*_POSSIBLE_CCY)
 _rate_validator = sm.And(sm.Use(float), lambda n: n >= 0)
 _date_validator = sm.Regex(r"\d{4}-\d{2}-\d{2}")
 
@@ -22,19 +22,25 @@ _ecb_rate_scm = sm.Schema({
 
 
 class ECBProvider(ExchangeRatesProvider):
-    API_ENDPOINT_CONFIG_NAME = "ECB_PROVIDER_API_ENDPOINT"
+    API_ENDPOINT_CONFIG_NAME = "API_ENDPOINT"
 
     @classmethod
     def create(cls, endpoint: str):
         if not endpoint:
             raise ValueError("API endpoint is required")
-        client = HttpClient.create()
+
+        try:
+            client = HttpClient.create()
+        except ClientError as err:
+            raise ExchangeRateLoadError(
+                "Could not create provider"
+            ) from err
 
         return cls(endpoint, client, _ecb_rate_scm)
 
     @classmethod
-    def from_config(cls, config: dict):
-        endpoint = config[cls.API_ENDPOINT_CONFIG_NAME]
+    def from_config(cls, settings: dict):
+        endpoint = settings[cls.API_ENDPOINT_CONFIG_NAME]
         return cls.create(endpoint)
 
     def __init__(self,
@@ -84,10 +90,10 @@ class ECBProvider(ExchangeRatesProvider):
             ) from err
 
         return Rate(
-            from_ccy,
-            to_ccy,
-            rate,
-            dt
+            from_ccy=from_ccy,
+            to_ccy=to_ccy,
+            value=rate,
+            dt=dt
         )
 
     async def load_rate(self,

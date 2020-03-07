@@ -1,12 +1,7 @@
-from decimal import Decimal
-
 from django.db import models
 
-from enum import Enum
-import datetime
 
-
-class Currency(Enum):
+class Currency(models.TextChoices):
     CZK = "CZK"
     EUR = "EUR"
     PLN = "PLN"
@@ -14,7 +9,12 @@ class Currency(Enum):
 
 
 class Rate(models.Model):
-    from_ccy: Currency
-    to_ccy: Currency
-    value: Decimal
-    dt: datetime.datetime
+    class Meta:
+        unique_together = (('from_ccy', 'to_ccy'),)
+
+    from_ccy = models.CharField(max_length=3,
+                                choices=Currency.choices)
+    to_ccy = models.CharField(max_length=3,
+                              choices=Currency.choices)
+    value = models.DecimalField(max_digits=10, decimal_places=5)
+    dt = models.DateTimeField()
