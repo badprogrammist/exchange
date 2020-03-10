@@ -11,3 +11,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Init environment
 - Add exchange rate provider
 - Exchange rates updating scheduler
+- Add api methods: `GET /exchange/rates/<ccy>`, `POST /exchange/convert/<base_ccy>/<convert_ccy>/<amount>`

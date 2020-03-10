@@ -1,15 +1,49 @@
 import asyncio
 import itertools as it
+import logging
 import typing
+from datetime import datetime
 
 from apscheduler.schedulers.background import BackgroundScheduler
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.db import transaction
 
-from .models import Currency, Rate
+from .errors import ExchangeError
+from .models import (Currency, Rate, Money,
+                     Rates, ExchangeResult)
 from .providers import create_provider
-import logging
+
+
+def convert(money: Money, to_ccy: Currency) -> ExchangeResult:
+    if money.ccy == to_ccy:
+        return ExchangeResult(datetime.now(),
+                              money)
+
+    rate = Rate.objects.get(from_ccy=money.ccy,
+                            to_ccy=to_ccy)
+    if not rate:
+        raise ExchangeError(
+            f"There is no rate for currencies"
+            f" {money.ccy.value}:{to_ccy.value}")
+
+    converted_money = rate.convert(money)
+    return ExchangeResult(rate.dt, converted_money)
+
+
+def get_rates(base: Currency) -> Rates:
+    rates = Rate.objects.filter(from_ccy=base)
+
+    assert (len({rate.dt for rate in rates}) == 1,
+            "Rates have different dt")
+
+    dt = rates[0].dt
+    return Rates(
+        dt,
+        base,
+        {rate.to_ccy: rate.value
+         for rate in rates}
+    )
 
 
 def load_rates() -> typing.List[Rate]:
@@ -37,6 +71,8 @@ def load_rates() -> typing.List[Rate]:
 
 @transaction.atomic
 def save_rates(rates: typing.List[Rate]):
+    if not rates:
+        raise ValueError("Attempt to save empty rates")
     Rate.objects.all().delete()
     Rate.objects.bulk_create(rates)
 
@@ -55,5 +91,6 @@ def schedule_rates_updating():
                       id="rates_updater",
                       replace_existing=True,
                       trigger='interval',
-                      seconds=seconds)
+                      seconds=seconds,
+                      next_run_time=datetime.now())
     scheduler.start()

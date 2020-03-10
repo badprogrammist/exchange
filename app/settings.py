@@ -45,25 +45,26 @@ EXCHANGE_DATA_PROVIDER_SETTINGS = {
 }
 
 EXCHANGE_RATES_UPDATE_INTERVAL_SEC = env.int("EXCHANGE_RATES_UPDATE_INTERVAL",
-                                             default=15)  # TODO change
+                                             default=86400)  # a day
 
 # TODO remove some
 INSTALLED_APPS = [
     # 'django.contrib.admin',
     # 'django.contrib.auth',
-    # 'django.contrib.contenttypes',
+    'django.contrib.contenttypes',
     # 'django.contrib.sessions',
     # 'django.contrib.messages',
     # 'django.contrib.staticfiles',
-    'exchange.apps.ExchangeConfig'
+    'exchange.apps.ExchangeConfig',
+    'rest_framework'
 ]
 
 # TODO remove some
 MIDDLEWARE = [
     # 'django.middleware.security.SecurityMiddleware',
     # 'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.common.CommonMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     # 'django.contrib.auth.middleware.AuthenticationMiddleware',
     # 'django.contrib.messages.middleware.MessageMiddleware',
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -96,7 +97,7 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'AUTOCOMMIT': False,
+        'AUTOCOMMIT': True,
         'NAME': env.str("PG_NAME", default="exchange"),
         'HOST': env.str("PG_HOST", default="localhost"),
         'PORT': env.int("PG_PORT", default=5432),
@@ -145,3 +146,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+REST_FRAMEWORK = {
+    'UNAUTHENTICATED_USER': None,
+}
