@@ -11,7 +11,7 @@ async-timeout==3.0.1      # via aiohttp
 attrs==19.3.0             # via aiohttp, pytest
 chardet==3.0.4            # via aiohttp
 contextlib2==0.5.5        # via schema
-django==3.0.4             # via -r requirements.in, djangorestframework
+django==3.0.7             # via -r requirements.in, djangorestframework
 djangorestframework==3.11.0  # via -r requirements.in
 environs==7.3.0           # via -r requirements.in
 idna==2.9                 # via yarl
