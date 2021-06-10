@@ -4,34 +4,73 @@
 #
 #    pip-compile requirements.in
 #
-aiohttp==3.6.2            # via -r requirements.in
-apscheduler==3.6.3        # via -r requirements.in
-asgiref==3.2.3            # via django
-async-timeout==3.0.1      # via aiohttp
-attrs==19.3.0             # via aiohttp, pytest
-chardet==3.0.4            # via aiohttp
-contextlib2==0.5.5        # via schema
-django==3.0.4             # via -r requirements.in, djangorestframework
-djangorestframework==3.11.0  # via -r requirements.in
-environs==7.3.0           # via -r requirements.in
-idna==2.9                 # via yarl
-marshmallow==3.5.1        # via environs
-more-itertools==8.2.0     # via pytest
-multidict==4.7.5          # via aiohttp, yarl
-packaging==20.3           # via pytest
-pluggy==0.13.1            # via pytest
-psycopg2==2.8.4           # via -r requirements.in
-py==1.8.1                 # via pytest
-pyparsing==2.4.6          # via packaging
-pytest==5.3.5             # via -r requirements.in
-python-dotenv==0.12.0     # via environs
-pytz==2019.3              # via apscheduler, django, tzlocal
-schema==0.7.1             # via -r requirements.in
-six==1.14.0               # via apscheduler, packaging
-sqlparse==0.3.1           # via django
-tzlocal==2.0.0            # via apscheduler
-wcwidth==0.1.8            # via pytest
-yarl==1.4.2               # via aiohttp
+aiohttp==3.6.2
+    # via -r requirements.in
+apscheduler==3.6.3
+    # via -r requirements.in
+asgiref==3.3.4
+    # via django
+async-timeout==3.0.1
+    # via aiohttp
+attrs==19.3.0
+    # via
+    #   aiohttp
+    #   pytest
+chardet==3.0.4
+    # via aiohttp
+contextlib2==0.5.5
+    # via schema
+django==3.1.12
+    # via
+    #   -r requirements.in
+    #   djangorestframework
+djangorestframework==3.11.0
+    # via -r requirements.in
+environs==7.3.0
+    # via -r requirements.in
+idna==2.9
+    # via yarl
+marshmallow==3.5.1
+    # via environs
+more-itertools==8.2.0
+    # via pytest
+multidict==4.7.5
+    # via
+    #   aiohttp
+    #   yarl
+packaging==20.3
+    # via pytest
+pluggy==0.13.1
+    # via pytest
+psycopg2==2.8.4
+    # via -r requirements.in
+py==1.8.1
+    # via pytest
+pyparsing==2.4.6
+    # via packaging
+pytest==5.3.5
+    # via -r requirements.in
+python-dotenv==0.12.0
+    # via environs
+pytz==2019.3
+    # via
+    #   apscheduler
+    #   django
+    #   tzlocal
+schema==0.7.1
+    # via -r requirements.in
+six==1.14.0
+    # via
+    #   apscheduler
+    #   packaging
+sqlparse==0.3.1
+    # via django
+tzlocal==2.0.0
+    # via apscheduler
+wcwidth==0.1.8
+    # via pytest
+yarl==1.4.2
+    # via aiohttp
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
